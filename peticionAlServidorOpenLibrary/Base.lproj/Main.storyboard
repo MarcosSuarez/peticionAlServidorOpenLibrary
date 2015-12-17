@@ -18,13 +18,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OPEN LIBRARY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMG-NA-rn6">
-                                <rect key="frame" x="225" y="28" width="150" height="27"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <rect key="frame" x="218" y="28" width="165" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <size key="shadowOffset" width="1" height="-1"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lrl-Fv-gPU">
-                                <rect key="frame" x="156" y="92" width="289" height="30"/>
+                                <rect key="frame" x="156" y="83" width="289" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQy-ek-xzL">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
@@ -35,24 +37,26 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ej. xxx-xx-xxx-xxxx-x" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-a3-hjT">
                                         <rect key="frame" x="60" y="0.0" width="229" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="webSearch"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="AFg-19-tWw"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
-                                <rect key="frame" x="156" y="152" width="289" height="230"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Datos CRUDOS de la busqueda" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
+                                <rect key="frame" x="156" y="143" width="289" height="230"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="ChB-8G-aBp"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bq-hA-c9A"/>
-                            <constraint firstItem="Lrl-Fv-gPU" firstAttribute="top" secondItem="TMG-NA-rn6" secondAttribute="bottom" constant="37" id="GtD-Cf-iyf"/>
+                            <constraint firstItem="Lrl-Fv-gPU" firstAttribute="top" secondItem="TMG-NA-rn6" secondAttribute="bottom" constant="25" id="GtD-Cf-iyf"/>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="doK-ya-HKS"/>
                             <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="iKk-a3-hjT" secondAttribute="bottom" constant="30" id="gWs-sA-ray"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mAC-or-5SQ"/>
@@ -60,6 +64,10 @@
                             <constraint firstItem="Bg9-o3-ELh" firstAttribute="width" secondItem="Lrl-Fv-gPU" secondAttribute="width" id="zml-pb-bTa"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textFieldISBN" destination="iKk-a3-hjT" id="wNC-GI-SvE"/>
+                        <outlet property="visualDatosBusqueda" destination="Bg9-o3-ELh" id="QX6-y1-rfS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
