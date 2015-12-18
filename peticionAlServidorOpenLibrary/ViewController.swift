@@ -5,6 +5,7 @@
 //  Created by Marcos Suarez on 17/12/15.
 //  Copyright © 2015 Marcos Suarez. All rights reserved.
 //
+//   https://openlibrary.org/
 
 import UIKit
 
@@ -36,20 +37,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // busco los datos de esa WEB.
         let datosURL = sesion.dataTaskWithURL(url!) { (datos, respuestaURL, errores) -> Void in
             
-            if errores == nil {
-                // devolver al hilo principal
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // devolver al hilo principal
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+                if errores == nil {
                     // recogo los datos recibidos.
                     var texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
                     // informo si se encontró el libro
                     if texto == "{}" { texto = "No se encontró la referencia"}
                     // presento los datos recibidos.
                     self.visualDatosBusqueda.text = texto as! String
-                })
-            } else {
-                // No hay conexión a Internet presentar una alerta.
-                self.mostrarAlerta(errores)
-            }
+                    
+                } else {
+                    // No hay conexión a Internet presentar una alerta.
+                    self.mostrarAlerta(errores)
+                }
+                
+            })
         }
         datosURL.resume()
     }
@@ -76,7 +80,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("Razón: \(errorRecibido!.localizedFailureReason)")
             print("Descripción: \(errorRecibido!.localizedRecoverySuggestion)")
         }
-        
     }
     
     // Se presionó BUSCAR.
@@ -96,7 +99,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
         switch string {
-        case "0","1","2","3","4","5","6","7","8","9","-":   return true
+        case "0","1","2","3","4","5","6","7","8","9","-","":   return true
         default: return false
         }
     }
