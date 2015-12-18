@@ -47,7 +47,7 @@
                             </stackView>
                             <textView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleAspectFit" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
                                 <rect key="frame" x="20" y="143" width="560" height="449"/>
-                                <mutableString key="text">Se deberá mostrar los datos CRUDOS (sin procesar) producto de la consulta en la vista texto en concordancia con el ISBN que se ingreso en la caja de texto
+                                <string key="text">Se deberá mostrar los datos CRUDOS (sin procesar) producto de la consulta en la vista texto en concordancia con el ISBN que se ingreso en la caja de texto
 En caso de error (problemas con Internet), se deberá mostrar una alerta indicando esta situación.
 
 Criterios de evaluación :
@@ -78,7 +78,7 @@ Criterios de evaluación :
 
 7. Se muestra el resultado en concordancia al ISBN ingresado
 	•	Si (5 puntos)
-	•	No (0 puntos)</mutableString>
+	•	No (0 puntos)</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
@@ -93,7 +93,6 @@ Criterios de evaluación :
                             <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="iKk-a3-hjT" secondAttribute="bottom" constant="30" id="gWs-sA-ray"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mAC-or-5SQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bg9-o3-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="t6w-xC-93n"/>
-                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vDY-3M-Zq0"/>
                         </constraints>
                     </view>
                     <connections>

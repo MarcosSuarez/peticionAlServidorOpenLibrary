@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var visualDatosBusqueda: UITextView!
     
     var textoRecibido:String = ""
-    
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,22 +43,32 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 // No hay conexión a Internet presentar una alerta.
                 self.mostrarAlerta(errores)
             } else {
-                let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
-                // info del URL.
-                print("info del URL: \(respuestaURL)")
+                // recogo los datos recibidos.
+                var texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+                // informo si se encontró el libro
+                if texto == "{}" { texto = "No se encontró la referencia"}
+                
                 // presento los datos recibidos.
                 print("datos recibidos: \(texto!.description)")
-                self.textoRecibido = texto!.description
+                self.modificarTextoDatos(texto!.description)
             }
         }
         datosURL.resume()
+    }
+    
+    func modificarTextoDatos(texto:String)
+    {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.visualDatosBusqueda.text = texto
+        })
+        
     }
     
     // Alerta No hay Internet.
     func mostrarAlerta(errorRecibido: NSError?)
     {
         // Creo la Alerta.
-        let alerta = UIAlertController(title: "Problemas con la conexión a Internet", message: errorRecibido!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+        let alerta = UIAlertController(title: "Problemas con la conexión", message: errorRecibido!.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
         
         // Defino que hacer cuando se presiona el botón.
         let accionAlerta = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel) { (accionArealizar) -> Void in
