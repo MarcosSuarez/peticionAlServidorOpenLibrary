@@ -14,8 +14,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var visualDatosBusqueda: UITextView!
     
-    var textoRecibido:String = ""
-     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,7 +25,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func buscarISBN(isbn: String = "978-84-376-0494-7")
+    func buscarISBN(isbn: String)
     {
         // definimos la dirección web
         let url = NSURL(string: "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:\(isbn)")
@@ -38,30 +36,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // busco los datos de esa WEB.
         let datosURL = sesion.dataTaskWithURL(url!) { (datos, respuestaURL, errores) -> Void in
             
-            // Si hay un error, lo notifico.
-            if errores != nil {
+            if errores == nil {
+                // devolver al hilo principal
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    // recogo los datos recibidos.
+                    var texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+                    // informo si se encontró el libro
+                    if texto == "{}" { texto = "No se encontró la referencia"}
+                    // presento los datos recibidos.
+                    self.visualDatosBusqueda.text = texto as! String
+                })
+            } else {
                 // No hay conexión a Internet presentar una alerta.
                 self.mostrarAlerta(errores)
-            } else {
-                // recogo los datos recibidos.
-                var texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
-                // informo si se encontró el libro
-                if texto == "{}" { texto = "No se encontró la referencia"}
-                
-                // presento los datos recibidos.
-                print("datos recibidos: \(texto!.description)")
-                self.modificarTextoDatos(texto!.description)
             }
         }
         datosURL.resume()
-    }
-    
-    func modificarTextoDatos(texto:String)
-    {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.visualDatosBusqueda.text = texto
-        })
-        
     }
     
     // Alerta No hay Internet.
@@ -90,21 +80,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     // Se presionó BUSCAR.
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
         if textField == textFieldISBN
         {
             // Quitar el teclado.
             textFieldISBN.resignFirstResponder()
             // iniciar la busqueda.
-            print(" Se introdujo:\(textField.text!)")
             buscarISBN(textField.text!)
         }
         return true
     }
     
     // Control de posibles caracteres.
-    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+    {
+        switch string {
+        case "0","1","2","3","4","5","6","7","8","9","-":   return true
+        default: return false
+        }
+    }
 
 }
-
