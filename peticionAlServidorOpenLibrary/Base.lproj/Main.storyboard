@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -26,29 +27,58 @@
                                 <size key="shadowOffset" width="1" height="-1"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lrl-Fv-gPU">
-                                <rect key="frame" x="156" y="83" width="289" height="30"/>
+                                <rect key="frame" x="174" y="83" width="252" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQy-ek-xzL">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ej. xxx-xx-xxx-xxxx-x" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-a3-hjT">
-                                        <rect key="frame" x="60" y="0.0" width="229" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ej. xxx-xx-xxx-xxxx-x" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-a3-hjT">
+                                        <rect key="frame" x="60" y="0.0" width="192" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="search"/>
                                         <connections>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="AFg-19-tWw"/>
                                         </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Datos CRUDOS de la busqueda" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
-                                <rect key="frame" x="156" y="143" width="289" height="230"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="230" id="ChB-8G-aBp"/>
-                                </constraints>
+                            <textView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleAspectFit" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
+                                <rect key="frame" x="20" y="143" width="560" height="449"/>
+                                <mutableString key="text">Se deberá mostrar los datos CRUDOS (sin procesar) producto de la consulta en la vista texto en concordancia con el ISBN que se ingreso en la caja de texto
+En caso de error (problemas con Internet), se deberá mostrar una alerta indicando esta situación.
+
+Criterios de evaluación :
+
+1  ¿Existe una enlace a GitHub con el proyecto?
+	•	Si (1 punto)
+	•	No (0 puntos)
+
+2. ¿El programa está hecho en Swift?
+	•	Si (1 punto)
+	•	No (0 puntos)
+
+3. ¿Tiene un campo de texto que permite la captura del ISBN?
+	•	Si (1 punto)
+	•	No (0 puntos)
+
+4. ¿Al hacer clic sobre el campo de texto, el teclado que emerge muestra la tecla de “Entrada” como “Búsqueda”?
+	•	Si (1 punto)
+	•	No (0 puntos)
+
+5. La marca de "limpiar" en la caja de texto aparece todo el tiempo
+	•	Si (1 punto)
+	•	No (0 puntos)
+
+6. En caso de falla en Internet, se muestra una alerta indicando ese problema
+	•	Si (1 punto)
+	•	No (0 puntos)
+
+7. Se muestra el resultado en concordancia al ISBN ingresado
+	•	Si (5 puntos)
+	•	No (0 puntos)</mutableString>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
@@ -56,12 +86,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bq-hA-c9A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Bg9-o3-ELh" secondAttribute="trailing" id="Beb-te-mx6"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="top" secondItem="TMG-NA-rn6" secondAttribute="bottom" constant="25" id="GtD-Cf-iyf"/>
+                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Pi7-hg-3Tm"/>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="doK-ya-HKS"/>
                             <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="iKk-a3-hjT" secondAttribute="bottom" constant="30" id="gWs-sA-ray"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mAC-or-5SQ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bg9-o3-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="t6w-xC-93n"/>
                             <constraint firstItem="Bg9-o3-ELh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vDY-3M-Zq0"/>
-                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="width" secondItem="Lrl-Fv-gPU" secondAttribute="width" id="zml-pb-bTa"/>
                         </constraints>
                     </view>
                     <connections>
