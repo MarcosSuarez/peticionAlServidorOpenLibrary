@@ -85,6 +85,7 @@ Criterios de evaluación :
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bq-hA-c9A"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Bg9-o3-ELh" secondAttribute="trailing" id="Beb-te-mx6"/>
@@ -95,6 +96,9 @@ Criterios de evaluación :
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mAC-or-5SQ"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bg9-o3-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="t6w-xC-93n"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="B7F-E2-anE" appends="YES" id="E3p-Ie-BGQ"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="textFieldISBN" destination="iKk-a3-hjT" id="wNC-GI-SvE"/>
@@ -102,6 +106,11 @@ Criterios de evaluación :
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="B7F-E2-anE">
+                    <connections>
+                        <action selector="toqueEnView:" destination="BYZ-38-t0r" id="4eV-Lr-PdN"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="429"/>
         </scene>

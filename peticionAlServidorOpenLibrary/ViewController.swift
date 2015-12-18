@@ -103,5 +103,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         default: return false
         }
     }
+    
+    // Quitar teclado si se toca en cualquier sitio
+    @IBAction func toqueEnView(sender: UITapGestureRecognizer) {
+        
+        textFieldISBN.resignFirstResponder()
+    }
 
 }
