@@ -55,6 +55,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
                             // obtengo el título del libro.
                             let titulo = objetoISBN["title"] as! String
+                            
+                            // busco los nombres de todos los autores
+                            
                             print("Titulo del Libro: \(titulo)")
                             // busco el arreglo de objetos que contiene los autores
                             let objetoAutores = objetoISBN["authors"] as! NSArray
@@ -67,9 +70,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
                                 print("Autor: \(autor)")
                             }
                             
-                            
-                            // busco los nombres de todos los autores
                             // busco la portada del libro, si existe..
+                            let objetoUrlsImagenes = objetoISBN["cover"] as! NSDictionary
+                            let urlImagen = objetoUrlsImagenes["large"] as! String
+                            print("Dirección de la imagen del libro: \(urlImagen)")
                             
                         } catch {
                             self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"
