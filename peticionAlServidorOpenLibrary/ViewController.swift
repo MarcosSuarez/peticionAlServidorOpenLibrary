@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var campoTitulo: UILabel!
     
+    @IBOutlet var imagenLibro: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +46,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 
                 if errores == nil {
                     // recogo los datos recibidos.
-                    var texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+                    let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
                     
                     // informo si se encontró el libro
-                    if texto == "{}" { texto = "No se encontró la referencia"}
+                    if texto == "{}" { self.campoTitulo.text = "No se encontró la referencia"}
                     else { self.filtrarDatosEnJSON(datos!, isbn: isbn) }
                     
                     // presento los datos recibidos.
-                    self.visualDatosBusqueda.text = texto as! String
+                    //self.visualDatosBusqueda.text = texto as! String
                     
                 } else {
                     // No hay conexión a Internet presentar una alerta.
@@ -82,13 +83,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // Arreglo que contiene los autores.
             let objetoAutores = objetoISBN["authors"] as! NSArray
             
+            var autores = "Autores:\n"
+            
             // busco los nombres de todos los autores
             for item in objetoAutores
             {
                 let diccionarioConDatos = item as! Dictionary<String,String>
                 let autor = diccionarioConDatos["name"]!
-                print("Autor: \(autor)")
+                //print("Autor: \(autor)")
+                autores += "\(autor) \n"
             }
+            
+            self.visualDatosBusqueda.text = autores
             
             // busco la portada del libro, si existe..
             if  let objetoUrlsImagenes = objetoISBN["cover"],

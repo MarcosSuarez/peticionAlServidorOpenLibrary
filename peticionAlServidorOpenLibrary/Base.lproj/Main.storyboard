@@ -27,7 +27,7 @@
                                 <size key="shadowOffset" width="1" height="-1"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lrl-Fv-gPU">
-                                <rect key="frame" x="20" y="83" width="560" height="46"/>
+                                <rect key="frame" x="20" y="66" width="560" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQy-ek-xzL">
                                         <rect key="frame" x="8" y="8" width="60" height="30"/>
@@ -35,10 +35,10 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ej. xxx-xx-xxx-xxxx-x" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="10" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-a3-hjT">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="978-84-362-6085-4" minimumFontSize="10" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-a3-hjT">
                                         <rect key="frame" x="68" y="8" width="484" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="search"/>
                                         <connections>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="AFg-19-tWw"/>
@@ -47,34 +47,42 @@
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             </stackView>
-                            <textView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleAspectFit" editable="NO" text="TEXTO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
-                                <rect key="frame" x="20" y="166" width="560" height="426"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titulo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="989-Rr-67e">
-                                <rect key="frame" x="20" y="137" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titulo" textAlignment="center" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="989-Rr-67e">
+                                <rect key="frame" x="20" y="120" width="560" height="21"/>
+                                <color key="backgroundColor" red="0.61701206770000006" green="0.78009235960000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleAspectFit" editable="NO" text="Autores:" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
+                                <rect key="frame" x="150" y="149" width="300" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="uC8-iO-8mX"/>
+                                    <constraint firstAttribute="width" constant="300" id="uG5-Ta-ihd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_OL-lg" translatesAutoresizingMaskIntoConstraints="NO" id="HJG-OS-S6u">
+                                <rect key="frame" x="190" y="277" width="220" height="140"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bq-hA-c9A"/>
                             <constraint firstItem="989-Rr-67e" firstAttribute="top" secondItem="Lrl-Fv-gPU" secondAttribute="bottom" constant="8" symbolic="YES" id="Ay6-cV-vXJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Bg9-o3-ELh" secondAttribute="trailing" id="Beb-te-mx6"/>
-                            <constraint firstItem="Lrl-Fv-gPU" firstAttribute="top" secondItem="TMG-NA-rn6" secondAttribute="bottom" constant="25" id="GtD-Cf-iyf"/>
+                            <constraint firstItem="Lrl-Fv-gPU" firstAttribute="top" secondItem="TMG-NA-rn6" secondAttribute="bottom" constant="8" symbolic="YES" id="GtD-Cf-iyf"/>
                             <constraint firstAttribute="leadingMargin" secondItem="989-Rr-67e" secondAttribute="leading" id="Ob9-o2-oYI"/>
-                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Pi7-hg-3Tm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Lrl-Fv-gPU" secondAttribute="trailing" id="QMM-UP-6Nf"/>
+                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cyS-pn-583"/>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="doK-ya-HKS"/>
-                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="989-Rr-67e" secondAttribute="bottom" constant="8" symbolic="YES" id="ebt-8k-cmc"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mAC-or-5SQ"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nKt-3p-yYe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="989-Rr-67e" secondAttribute="trailing" id="nh5-T4-EJi"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bg9-o3-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="t6w-xC-93n"/>
+                            <constraint firstItem="HJG-OS-S6u" firstAttribute="top" secondItem="Bg9-o3-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="pvw-6p-eB9"/>
+                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="989-Rr-67e" secondAttribute="bottom" constant="8" symbolic="YES" id="tKO-C6-a3t"/>
+                            <constraint firstItem="HJG-OS-S6u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tvb-sC-2f8"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="B7F-E2-anE" appends="YES" id="E3p-Ie-BGQ"/>
@@ -82,6 +90,7 @@
                     </view>
                     <connections>
                         <outlet property="campoTitulo" destination="989-Rr-67e" id="O0i-Nk-p4N"/>
+                        <outlet property="imagenLibro" destination="8bC-Xf-vdC" id="1dm-rm-t56"/>
                         <outlet property="textFieldISBN" destination="iKk-a3-hjT" id="wNC-GI-SvE"/>
                         <outlet property="visualDatosBusqueda" destination="Bg9-o3-ELh" id="QX6-y1-rfS"/>
                     </connections>
@@ -96,4 +105,7 @@
             <point key="canvasLocation" x="305" y="429"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo_OL-lg" width="220" height="140"/>
+    </resources>
 </document>
