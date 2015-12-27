@@ -49,7 +49,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
                     
                     // informo si se encontró el libro
-                    if texto == "{}" { self.campoTitulo.text = "No se encontró la referencia"}
+                    if texto == "{}"
+                    {
+                        self.campoTitulo.text = "No se encontró la referencia"
+                        self.visualDatosBusqueda.text = "Autores:\n"
+                        self.imagenLibro.image = UIImage(named: "logo_OL-lg")
+                    }
                     else { self.filtrarDatosEnJSON(datos!, isbn: isbn) }
                     
                     // presento los datos recibidos.
@@ -80,20 +85,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if let titulo = objetoISBN["title"] { self.campoTitulo.text = "\(titulo)" }
             else { self.campoTitulo.text = "No se encontró el titulo"}
             
-            // Arreglo que contiene los autores.
-            let objetoAutores = objetoISBN["authors"] as! NSArray
-            
+            // variable con los autores.
             var autores = "Autores:\n"
             
-            // busco los nombres de todos los autores
-            for item in objetoAutores
+            // Arreglo que contiene los autores, si existen...
+            if let objetoAutores = objetoISBN["authors"] as? NSArray
             {
-                let diccionarioConDatos = item as! Dictionary<String,String>
-                let autor = diccionarioConDatos["name"]!
-                //print("Autor: \(autor)")
-                autores += "\(autor) \n"
+                // busco los nombres de todos los autores
+                for item in objetoAutores
+                {
+                    let diccionarioConDatos = item as! Dictionary<String,String>
+                    let autor = diccionarioConDatos["name"]!
+                    //print("Autor: \(autor)")
+                    autores += "\(autor) \n"
+                }
             }
-            
             self.visualDatosBusqueda.text = autores
             
             // busco la portada del libro, si existe..
