@@ -15,6 +15,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var visualDatosBusqueda: UITextView!
     
+    @IBOutlet weak var campoTitulo: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,42 +46,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 if errores == nil {
                     // recogo los datos recibidos.
                     var texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
+                    
                     // informo si se encontró el libro
                     if texto == "{}" { texto = "No se encontró la referencia"}
-                    else {
-                        do {
-                            // convierto los datos al formato JSON.
-                            let datosEnJson = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
-                            // paso el objeto completo a diccionario.
-                            let jsonAdiccionario = datosEnJson as! NSDictionary
-                            // busco dentro del diccionario el objeto que me interesa.
-                            let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
-                            // obtengo el título del libro.
-                            let titulo = objetoISBN["title"] as! String
-                            
-                            // busco los nombres de todos los autores
-                            
-                            print("Titulo del Libro: \(titulo)")
-                            // busco el arreglo de objetos que contiene los autores
-                            let objetoAutores = objetoISBN["authors"] as! NSArray
-                            for item in objetoAutores
-                            {
-                                let diccionarioConDatos = item as! Dictionary<String,String>
-                                
-                                let autor = diccionarioConDatos["name"]!
-                                
-                                print("Autor: \(autor)")
-                            }
-                            
-                            // busco la portada del libro, si existe..
-                            let objetoUrlsImagenes = objetoISBN["cover"] as! NSDictionary
-                            let urlImagen = objetoUrlsImagenes["large"] as! String
-                            print("Dirección de la imagen del libro: \(urlImagen)")
-                            
-                        } catch {
-                            self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"
-                        }
-                    }
+                    else { self.filtrarDatosEnJSON(datos!, isbn: isbn) }
+                    
                     // presento los datos recibidos.
                     self.visualDatosBusqueda.text = texto as! String
                     
@@ -86,10 +58,49 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     // No hay conexión a Internet presentar una alerta.
                     self.mostrarAlerta(errores)
                 }
-                
             })
         }
         datosURL.resume()
+    }
+    
+    // Recibe la data y filtra la información.
+    func filtrarDatosEnJSON(datos:NSData, isbn:String)
+    {
+        do {
+            // convierto los datos al formato JSON.
+            let datosEnJson = try NSJSONSerialization.JSONObjectWithData(datos, options: NSJSONReadingOptions.MutableLeaves)
+            // paso el objeto completo a diccionario.
+            let jsonAdiccionario = datosEnJson as! NSDictionary
+            
+            // En el diccionario selecciono el objeto que me interesa.
+            let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
+            
+            // Título del libro.
+            if let titulo = objetoISBN["title"] { self.campoTitulo.text = "\(titulo)" }
+            else { self.campoTitulo.text = "No se encontró el titulo"}
+            
+            // Arreglo que contiene los autores.
+            let objetoAutores = objetoISBN["authors"] as! NSArray
+            
+            // busco los nombres de todos los autores
+            for item in objetoAutores
+            {
+                let diccionarioConDatos = item as! Dictionary<String,String>
+                let autor = diccionarioConDatos["name"]!
+                print("Autor: \(autor)")
+            }
+            
+            // busco la portada del libro, si existe..
+            if  let objetoUrlsImagenes = objetoISBN["cover"],
+                let urlImagen = objetoUrlsImagenes["large"]
+            {
+                print("Dirección de la imagen del libro: \(urlImagen!)")
+            }
+            else { print("No hay imagen") }
+            
+        } catch {
+            self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"
+        }
     }
     
     // Alerta No hay Internet.
@@ -115,7 +126,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("Descripción: \(errorRecibido!.localizedRecoverySuggestion)")
         }
     }
-    
+
     // Se presionó BUSCAR.
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {

@@ -27,41 +27,53 @@
                                 <size key="shadowOffset" width="1" height="-1"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lrl-Fv-gPU">
-                                <rect key="frame" x="200" y="83" width="201" height="30"/>
+                                <rect key="frame" x="20" y="83" width="560" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ISBN: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQy-ek-xzL">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
+                                        <rect key="frame" x="8" y="8" width="60" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ej. xxx-xx-xxx-xxxx-x" clearsOnBeginEditing="YES" adjustsFontSizeToFit="NO" minimumFontSize="10" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="iKk-a3-hjT">
-                                        <rect key="frame" x="60" y="0.0" width="141" height="30"/>
+                                        <rect key="frame" x="68" y="8" width="484" height="30"/>
                                         <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numbersAndPunctuation" returnKeyType="search"/>
                                         <connections>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="AFg-19-tWw"/>
                                         </connections>
                                     </textField>
                                 </subviews>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             </stackView>
                             <textView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleAspectFit" editable="NO" text="TEXTO" translatesAutoresizingMaskIntoConstraints="NO" id="Bg9-o3-ELh">
-                                <rect key="frame" x="20" y="143" width="560" height="449"/>
+                                <rect key="frame" x="20" y="166" width="560" height="426"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titulo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="989-Rr-67e">
+                                <rect key="frame" x="20" y="137" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="8Bq-hA-c9A"/>
+                            <constraint firstItem="989-Rr-67e" firstAttribute="top" secondItem="Lrl-Fv-gPU" secondAttribute="bottom" constant="8" symbolic="YES" id="Ay6-cV-vXJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Bg9-o3-ELh" secondAttribute="trailing" id="Beb-te-mx6"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="top" secondItem="TMG-NA-rn6" secondAttribute="bottom" constant="25" id="GtD-Cf-iyf"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="989-Rr-67e" secondAttribute="leading" id="Ob9-o2-oYI"/>
                             <constraint firstItem="Bg9-o3-ELh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Pi7-hg-3Tm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Lrl-Fv-gPU" secondAttribute="trailing" id="QMM-UP-6Nf"/>
                             <constraint firstItem="TMG-NA-rn6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="doK-ya-HKS"/>
-                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="iKk-a3-hjT" secondAttribute="bottom" constant="30" id="gWs-sA-ray"/>
+                            <constraint firstItem="Bg9-o3-ELh" firstAttribute="top" secondItem="989-Rr-67e" secondAttribute="bottom" constant="8" symbolic="YES" id="ebt-8k-cmc"/>
                             <constraint firstItem="Lrl-Fv-gPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mAC-or-5SQ"/>
+                            <constraint firstItem="Lrl-Fv-gPU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nKt-3p-yYe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="989-Rr-67e" secondAttribute="trailing" id="nh5-T4-EJi"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bg9-o3-ELh" secondAttribute="bottom" constant="8" symbolic="YES" id="t6w-xC-93n"/>
                         </constraints>
                         <connections>
@@ -69,6 +81,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="campoTitulo" destination="989-Rr-67e" id="O0i-Nk-p4N"/>
                         <outlet property="textFieldISBN" destination="iKk-a3-hjT" id="wNC-GI-SvE"/>
                         <outlet property="visualDatosBusqueda" destination="Bg9-o3-ELh" id="QX6-y1-rfS"/>
                     </connections>
