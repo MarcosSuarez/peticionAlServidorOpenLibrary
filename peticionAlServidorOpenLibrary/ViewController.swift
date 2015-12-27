@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var campoTitulo: UILabel!
     
-    @IBOutlet var imagenLibro: UIView!
+    @IBOutlet weak var imagenLibro: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,11 +98,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             // busco la portada del libro, si existe..
             if  let objetoUrlsImagenes = objetoISBN["cover"],
-                let urlImagen = objetoUrlsImagenes["large"]
+                let urlImagen = objetoUrlsImagenes["medium"]
             {
                 print("Dirección de la imagen del libro: \(urlImagen!)")
+                let urlDelLibro = NSURL(string: urlImagen as! String)
+                let datosImagen = UIImage(data: NSData(contentsOfURL: urlDelLibro!)!)
+                
+                imagenLibro.image = datosImagen
             }
-            else { print("No hay imagen") }
+            else { imagenLibro.image = UIImage(named: "logo_OL-lg") }
             
         } catch {
             self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"

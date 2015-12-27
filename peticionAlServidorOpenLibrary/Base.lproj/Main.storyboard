@@ -90,7 +90,7 @@
                     </view>
                     <connections>
                         <outlet property="campoTitulo" destination="989-Rr-67e" id="O0i-Nk-p4N"/>
-                        <outlet property="imagenLibro" destination="8bC-Xf-vdC" id="1dm-rm-t56"/>
+                        <outlet property="imagenLibro" destination="HJG-OS-S6u" id="Ra2-0H-rzR"/>
                         <outlet property="textFieldISBN" destination="iKk-a3-hjT" id="wNC-GI-SvE"/>
                         <outlet property="visualDatosBusqueda" destination="Bg9-o3-ELh" id="QX6-y1-rfS"/>
                     </connections>
