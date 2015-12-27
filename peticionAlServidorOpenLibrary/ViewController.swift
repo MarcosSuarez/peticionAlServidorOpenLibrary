@@ -57,7 +57,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
                             let titulo = objetoISBN["title"] as! String
                             print("Titulo del Libro: \(titulo)")
                             // busco el arreglo de objetos que contiene los autores
-                            //let objetoAutores = jsonAdiccionario["authors"] as! NSDictionary
+                            let objetoAutores = objetoISBN["authors"] as! NSArray
+                            for item in objetoAutores
+                            {
+                                let diccionarioConDatos = item as! Dictionary<String,String>
+                                
+                                let autor = diccionarioConDatos["name"]!
+                                
+                                print("Autor: \(autor)")
+                            }
+                            
+                            
+                            // busco los nombres de todos los autores
+                            // busco la portada del libro, si existe..
+                            
                         } catch {
                             self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"
                         }
