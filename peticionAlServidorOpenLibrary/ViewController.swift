@@ -48,6 +48,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     // presento los datos recibidos.
                     self.visualDatosBusqueda.text = texto as! String
                     
+                    do {
+                        // convierto los datos al formato JSON.
+                        let datosEnJson = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableLeaves)
+                        // paso el objeto completo a diccionario.
+                        let jsonAdiccionario = datosEnJson as! NSDictionary
+                        // busco dentro del diccionario el objeto que me interesa.
+                        let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
+                        // obtengo el título del libro.
+                        let titulo = objetoISBN["title"] as! String
+                        print("Titulo del Libro: \(titulo)")
+                        // busco el arreglo de objetos que contiene los autores
+                        //let objetoAutores = jsonAdiccionario["authors"] as! NSDictionary
+                    } catch {
+                        print("No se puede convertir a JSON los datos")
+                    }
+                    
                 } else {
                     // No hay conexión a Internet presentar una alerta.
                     self.mostrarAlerta(errores)
