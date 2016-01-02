@@ -173,6 +173,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         {
             // Quitar el teclado.
             textFieldISBN.resignFirstResponder()
+            // Guardar ISBN
+            infoISBN = textField.text!
             // iniciar la busqueda.
             buscarISBN(textField.text!)
         }
@@ -183,7 +185,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
     {
         switch string {
-        case "0","1","2","3","4","5","6","7","8","9","-","":   return true
+        case "0","1","2","3","4","5","6","7","8","9","-","": return true
         default: return false
         }
     }
