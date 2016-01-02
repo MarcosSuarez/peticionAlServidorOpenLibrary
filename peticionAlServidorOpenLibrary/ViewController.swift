@@ -121,7 +121,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 {
                     let diccionarioConDatos = item as! Dictionary<String,String>
                     let autor = diccionarioConDatos["name"]!
-                    //print("Autor: \(autor)")
+                    
                     autores += "\(autor) \n"
                 }
             }
@@ -131,7 +131,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if  let objetoUrlsImagenes = objetoISBN["cover"],
                 let urlImagen = objetoUrlsImagenes["medium"]
             {
-                print("Dirección de la imagen del libro: \(urlImagen!)")
                 let urlDelLibro = NSURL(string: urlImagen as! String)
                 imagenPortada = UIImage(data: NSData(contentsOfURL: urlDelLibro!)!)!
                 
@@ -184,8 +183,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
             textFieldISBN.resignFirstResponder()
             // Guardar ISBN
             infoISBN = textField.text!
-            // iniciar la busqueda.
-            buscarISBN(textField.text!)
+            
+            var existeLibro:Bool =  false
+            
+            // Buscar si existe el libro.
+            for libro in listaDeLibros {
+                if libro.ISBN == infoISBN {
+                    print("presento libro existente")
+                    textFieldISBN.text = libro.ISBN
+                    campoTitulo.text = libro.titulo
+                    visualDatosBusqueda.text = libro.autores
+                    imagenLibro.image = libro.imagen
+                    existeLibro = true
+                    break
+                }
+            }
+
+            if !existeLibro {
+                // iniciar la busqueda.
+                print("inicio busqueda")
+                buscarISBN(textField.text!)
+            }
         }
         return true
     }

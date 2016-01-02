@@ -39,8 +39,6 @@ class ListaLibros: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        listaDeLibros.append(InfoLibro(titulo: "prueba", ISBN: "12345", autores: "YO\n Tú\n Mi Hermano\n", imagen: UIImage(named: "logo_OL-lg")!))
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -72,7 +70,6 @@ class ListaLibros: UITableViewController {
         // Configure the cell...
         cell.textLabel?.text = listaDeLibros[indexPath.row].titulo
         
-
         return cell
     }
     
@@ -111,39 +108,26 @@ class ListaLibros: UITableViewController {
         return true
     }
     */
-
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if segue.identifier == "irADetalle"
+        if segue.identifier == "irADetalle" && sender is UITableViewCell
         {
-            // Verifico si se presionó +
-            if sender is UIBarButtonItem
-            {
-                print("Presionado botón +")
-            }
-            else
-            {
-                // Creo el nuevo ViewController
-                let mostrarDatosLibrosVC = segue.destinationViewController as! ViewController
-                
-                let indiceTabla = tableView.indexPathForSelectedRow
-                
-                // Presento el titulo del Navegador.
-                mostrarDatosLibrosVC.title = "BASE DE DATOS"
-                // Quito la opción de realizar modificaciones en el campoTexto.
-                mostrarDatosLibrosVC.sePuedeBuscar = false
-                // Agregamos la información del libro.
-                mostrarDatosLibrosVC.infoTitulo = listaDeLibros[indiceTabla!.row].titulo
-                mostrarDatosLibrosVC.infoISBN = listaDeLibros[indiceTabla!.row].ISBN
-                mostrarDatosLibrosVC.autores = listaDeLibros[indiceTabla!.row].autores
-                mostrarDatosLibrosVC.imagenPortada = listaDeLibros[indiceTabla!.row].imagen
-            }
+            // Creo el nuevo ViewController
+            let mostrarDatosLibrosVC = segue.destinationViewController as! ViewController
+            
+            let indiceTabla = tableView.indexPathForSelectedRow
+            
+            // Presento el titulo del Navegador.
+            mostrarDatosLibrosVC.title = "BASE DE DATOS"
+            // Quito la opción de realizar modificaciones en el campoTexto.
+            mostrarDatosLibrosVC.sePuedeBuscar = false
+            // Agregamos la información del libro.
+            mostrarDatosLibrosVC.infoTitulo = listaDeLibros[indiceTabla!.row].titulo
+            mostrarDatosLibrosVC.infoISBN = listaDeLibros[indiceTabla!.row].ISBN
+            mostrarDatosLibrosVC.autores = listaDeLibros[indiceTabla!.row].autores
+            mostrarDatosLibrosVC.imagenPortada = listaDeLibros[indiceTabla!.row].imagen
         }
-        
-
     }
-    
-
 }
