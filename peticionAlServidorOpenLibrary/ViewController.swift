@@ -19,12 +19,33 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var imagenLibro: UIImageView!
     
+    // Variables de control de datos.
+    var infoISBN:String = ""
+    var infoTitulo: String = "titulo del libro"
+    var autores = "Autores:\n"
+    var imagenPortada = UIImage(named: "logo_OL-lg")
+    var sePuedeBuscar: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+        textFieldISBN.text = infoISBN
+        campoTitulo.text = infoTitulo
+        visualDatosBusqueda.text = autores
+        imagenLibro.image = imagenPortada
+    }
+    
+    func reseteoDatos()
+    {
+        textFieldISBN.text = infoISBN
+        campoTitulo.text = "buscando titulo.."
+        visualDatosBusqueda.text = "Autores:\n"
+        imagenLibro.image = UIImage(named: "logo_OL-lg")
     }
 
+    override func viewDidAppear(animated: Bool) {
+        textFieldISBN.enabled = sePuedeBuscar
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -32,6 +53,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     func buscarISBN(isbn: String)
     {
+        // Borrar datos viejos.
+        reseteoDatos()
+        
         // definimos la dirección web
         let url = NSURL(string: "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:\(isbn)")
         
@@ -82,11 +106,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
             
             // Título del libro.
-            if let titulo = objetoISBN["title"] { self.campoTitulo.text = "\(titulo)" }
-            else { self.campoTitulo.text = "No se encontró el titulo"}
+            infoTitulo = objetoISBN["title"] as! String
             
-            // variable con los autores.
-            var autores = "Autores:\n"
+            if infoTitulo != "" { self.campoTitulo.text = "\(infoTitulo)" }
+            else { self.campoTitulo.text = "No se encontró el titulo"}
             
             // Arreglo que contiene los autores, si existen...
             if let objetoAutores = objetoISBN["authors"] as? NSArray
@@ -108,9 +131,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             {
                 print("Dirección de la imagen del libro: \(urlImagen!)")
                 let urlDelLibro = NSURL(string: urlImagen as! String)
-                let datosImagen = UIImage(data: NSData(contentsOfURL: urlDelLibro!)!)
+                imagenPortada = UIImage(data: NSData(contentsOfURL: urlDelLibro!)!)!
                 
-                imagenLibro.image = datosImagen
+                imagenLibro.image = imagenPortada
             }
             else { imagenLibro.image = UIImage(named: "logo_OL-lg") }
             

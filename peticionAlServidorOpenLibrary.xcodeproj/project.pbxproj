@@ -14,6 +14,7 @@
 		17EDFF421C22C5630036AC8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17EDFF401C22C5630036AC8B /* LaunchScreen.storyboard */; };
 		17EDFF4D1C22C5630036AC8B /* peticionAlServidorOpenLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDFF4C1C22C5630036AC8B /* peticionAlServidorOpenLibraryTests.swift */; };
 		17EDFF581C22C5640036AC8B /* peticionAlServidorOpenLibraryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDFF571C22C5640036AC8B /* peticionAlServidorOpenLibraryUITests.swift */; };
+		17F2F2DD1C37DE1600D80636 /* ListaLibros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F2F2DC1C37DE1600D80636 /* ListaLibros.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		17EDFF531C22C5640036AC8B /* peticionAlServidorOpenLibraryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = peticionAlServidorOpenLibraryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EDFF571C22C5640036AC8B /* peticionAlServidorOpenLibraryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = peticionAlServidorOpenLibraryUITests.swift; sourceTree = "<group>"; };
 		17EDFF591C22C5640036AC8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17F2F2DC1C37DE1600D80636 /* ListaLibros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListaLibros.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				17EDFF371C22C5630036AC8B /* AppDelegate.swift */,
 				17EDFF391C22C5630036AC8B /* ViewController.swift */,
+				17F2F2DC1C37DE1600D80636 /* ListaLibros.swift */,
 				17EDFF3B1C22C5630036AC8B /* Main.storyboard */,
 				17EDFF3E1C22C5630036AC8B /* Assets.xcassets */,
 				17EDFF401C22C5630036AC8B /* LaunchScreen.storyboard */,
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17EDFF3A1C22C5630036AC8B /* ViewController.swift in Sources */,
+				17F2F2DD1C37DE1600D80636 /* ListaLibros.swift in Sources */,
 				17EDFF381C22C5630036AC8B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +491,7 @@
 				17EDFF5E1C22C5640036AC8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		17EDFF5F1C22C5640036AC8B /* Build configuration list for PBXNativeTarget "peticionAlServidorOpenLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +500,7 @@
 				17EDFF611C22C5640036AC8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		17EDFF621C22C5640036AC8B /* Build configuration list for PBXNativeTarget "peticionAlServidorOpenLibraryUITests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +509,7 @@
 				17EDFF641C22C5640036AC8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
