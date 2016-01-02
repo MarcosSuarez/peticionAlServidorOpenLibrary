@@ -8,26 +8,39 @@
 
 import UIKit
 
-struct InfoLibros {
+struct InfoLibro {
     let titulo: String
     let ISBN: String
     let autores: String
     let imagen: UIImage
+    
+    init(titulo: String, ISBN: String, autores:String, imagen: UIImage)
+    {
+        self.titulo = titulo
+        self.ISBN = ISBN
+        self.autores = autores
+        self.imagen = imagen
+    }
 }
 
+// Lista con los libros.
+var listaDeLibros = [InfoLibro]()
+
 class ListaLibros: UITableViewController {
-    
-    var listaDeLibros = [InfoLibros]()
     
     @IBAction func alPresionarBotonPlus(sender: UIBarButtonItem) {
         
         self.performSegueWithIdentifier("irADetalle", sender: sender)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        listaDeLibros.append(InfoLibros(titulo: "prueba", ISBN: "12345", autores: "YO\n Tú\n Mi Hermano\n", imagen: UIImage(named: "logo_OL-lg")!))
+        listaDeLibros.append(InfoLibro(titulo: "prueba", ISBN: "12345", autores: "YO\n Tú\n Mi Hermano\n", imagen: UIImage(named: "logo_OL-lg")!))
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -117,6 +130,8 @@ class ListaLibros: UITableViewController {
                 
                 let indiceTabla = tableView.indexPathForSelectedRow
                 
+                // Presento el titulo del Navegador.
+                mostrarDatosLibrosVC.title = "BASE DE DATOS"
                 // Quito la opción de realizar modificaciones en el campoTexto.
                 mostrarDatosLibrosVC.sePuedeBuscar = false
                 // Agregamos la información del libro.

@@ -11,6 +11,8 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
+    // MARK: Variables visuales.
+    
     @IBOutlet weak var textFieldISBN: UITextField!
     
     @IBOutlet weak var visualDatosBusqueda: UITextView!
@@ -19,27 +21,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var imagenLibro: UIImageView!
     
-    // Variables de control de datos.
+    // MARK: Variables Control Datos.
+    
     var infoISBN:String = ""
     var infoTitulo: String = "titulo del libro"
     var autores = "Autores:\n"
     var imagenPortada = UIImage(named: "logo_OL-lg")
     var sePuedeBuscar: Bool = true
     
+    // MARK: Ciclos del View
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldISBN.text = infoISBN
         campoTitulo.text = infoTitulo
         visualDatosBusqueda.text = autores
         imagenLibro.image = imagenPortada
-    }
-    
-    func reseteoDatos()
-    {
-        textFieldISBN.text = infoISBN
-        campoTitulo.text = "buscando titulo.."
-        visualDatosBusqueda.text = "Autores:\n"
-        imagenLibro.image = UIImage(named: "logo_OL-lg")
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -50,7 +46,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
 
+    func reseteoDatos()
+    {
+        textFieldISBN.text = infoISBN
+        campoTitulo.text = "buscando titulo.."
+        visualDatosBusqueda.text = "Autores:\n"
+        imagenLibro.image = UIImage(named: "logo_OL-lg")
+    }
+    
+    // MARK: Busqueda de  LIBRO.
+    
     func buscarISBN(isbn: String)
     {
         // Borrar datos viejos.
@@ -73,18 +81,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     let texto = NSString(data: datos!, encoding: NSUTF8StringEncoding)
                     
                     // informo si se encontró el libro
-                    if texto == "{}"
-                    {
+                    if texto == "{}" {
                         self.campoTitulo.text = "No se encontró la referencia"
-                        self.visualDatosBusqueda.text = "Autores:\n"
-                        self.imagenLibro.image = UIImage(named: "logo_OL-lg")
                     }
                     else { self.filtrarDatosEnJSON(datos!, isbn: isbn) }
-                    
-                    // presento los datos recibidos.
-                    //self.visualDatosBusqueda.text = texto as! String
-                    
-                } else {
+                }
+                else {
                     // No hay conexión a Internet presentar una alerta.
                     self.mostrarAlerta(errores)
                 }
@@ -137,12 +139,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
             else { imagenLibro.image = UIImage(named: "logo_OL-lg") }
             
+            // Agrego la info en la estructura del libro.
+            let datosDelLibro = InfoLibro(titulo: infoTitulo, ISBN: infoISBN, autores: autores, imagen: imagenPortada!)
+            // Guardo el libro en la lista.
+            listaDeLibros.append(datosDelLibro)
+            
         } catch {
             self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"
         }
     }
     
-    // Alerta No hay Internet.
+    // MARK: Alerta No hay Internet.
     func mostrarAlerta(errorRecibido: NSError?)
     {
         // Creo la Alerta.
@@ -166,6 +173,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    // MARK: Funciones del Teclado
+    
     // Se presionó BUSCAR.
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
