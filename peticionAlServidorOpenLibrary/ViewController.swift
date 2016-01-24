@@ -189,7 +189,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             do {
                 try contextoBaseDatos?.save()
             } catch {
-                
+                print("Problemas guardando la base de datos")
             }
             
             
@@ -249,7 +249,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 if libroEntidad2?.count > 0 {
                     existeLibro = true
                     // recupero los datos.
-                    
+                    print("Leyendo de la base de Datos")
+                    textFieldISBN.text = libroEntidad2?.first!.valueForKey("isbn") as? String
+                    campoTitulo.text = libroEntidad2?.first!.valueForKey("titulo") as? String
+                    //visualDatosBusqueda.text = libro.autores
+                    imagenLibro.image = UIImage(data: libroEntidad2?.first!.valueForKey("imagen") as! NSData)
                 }
             } catch {
                 
