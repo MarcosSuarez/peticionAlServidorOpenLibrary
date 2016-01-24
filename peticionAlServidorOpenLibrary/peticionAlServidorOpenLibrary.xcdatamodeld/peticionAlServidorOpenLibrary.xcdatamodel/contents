@@ -13,6 +13,7 @@
     <fetchRequest name="peticionAutor" entity="Autor" predicateString="nombre == $nombre"/>
     <fetchRequest name="peticionLibro" entity="Libro" predicateString="isbn == $isbn"/>
     <fetchRequest name="peticionLibros" entity="Libro"/>
+    <fetchRequest name="peticionTodosAutores" entity="Autor"/>
     <elements>
         <element name="Autor" positionX="-29" positionY="-28" width="128" height="73"/>
         <element name="Libro" positionX="-333" positionY="-18" width="128" height="103"/>

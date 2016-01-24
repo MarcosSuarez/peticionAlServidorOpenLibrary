@@ -52,6 +52,8 @@ class ListaLibros: UITableViewController {
         
         // Defino de donde se saca el contexto.
         contextoBaseDatos = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        
+        mostrarAutores()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -92,6 +94,27 @@ class ListaLibros: UITableViewController {
 
     }
     
+    // Busca todos los autores que existen en la base de datos.
+    func mostrarAutores()
+    {
+        print("\n" + "  ---------- AUTORES EN BASE DATOS ----------")
+        // 1.- defino el tipo de Entidad a trabajar.
+        let tipoEntidadAutores = NSEntityDescription.entityForName("Autor", inManagedObjectContext: contextoBaseDatos!)
+        // 2.- defino el tipo de busqueda.
+        let peticionAbaseDatos = tipoEntidadAutores?.managedObjectModel.fetchRequestTemplateForName("peticionTodosAutores")
+        // 3.- realizo la petición.
+        do {
+            let listaTodosLosAutores = try contextoBaseDatos?.executeFetchRequest(peticionAbaseDatos!)
+            // presento todos los autores.
+            for cadaAutor in listaTodosLosAutores!
+            {
+                print("  ... " + (cadaAutor.valueForKey("nombre") as! String))
+            }
+            print("  -------------------------------------------")
+        } catch {
+            print("No se pudo accesar a la petición para obtener TODOS los autores")
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
