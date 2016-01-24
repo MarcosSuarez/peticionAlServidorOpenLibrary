@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		178D820D1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 178D820B1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodeld */; };
 		17EDFF381C22C5630036AC8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDFF371C22C5630036AC8B /* AppDelegate.swift */; };
 		17EDFF3A1C22C5630036AC8B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EDFF391C22C5630036AC8B /* ViewController.swift */; };
 		17EDFF3D1C22C5630036AC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17EDFF3B1C22C5630036AC8B /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		178D820C1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = peticionAlServidorOpenLibrary.xcdatamodel; sourceTree = "<group>"; };
 		17EDFF341C22C5630036AC8B /* peticionAlServidorOpenLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = peticionAlServidorOpenLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EDFF371C22C5630036AC8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17EDFF391C22C5630036AC8B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				17EDFF3E1C22C5630036AC8B /* Assets.xcassets */,
 				17EDFF401C22C5630036AC8B /* LaunchScreen.storyboard */,
 				17EDFF431C22C5630036AC8B /* Info.plist */,
+				178D820B1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodeld */,
 			);
 			path = peticionAlServidorOpenLibrary;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				17EDFF3A1C22C5630036AC8B /* ViewController.swift in Sources */,
 				17F2F2DD1C37DE1600D80636 /* ListaLibros.swift in Sources */,
 				17EDFF381C22C5630036AC8B /* AppDelegate.swift in Sources */,
+				178D820D1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +516,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		178D820B1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				178D820C1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodel */,
+			);
+			currentVersion = 178D820C1C4BA062002893DF /* peticionAlServidorOpenLibrary.xcdatamodel */;
+			path = peticionAlServidorOpenLibrary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 17EDFF2C1C22C5630036AC8B /* Project object */;
 }

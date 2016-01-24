@@ -8,6 +8,7 @@
 //   https://openlibrary.org/
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -104,6 +105,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // paso el objeto completo a diccionario.
             let jsonAdiccionario = datosEnJson as! NSDictionary
             
+            // creo nueva entidad Libro.
+            let nuevoLibroEntidad = NSEntityDescription.insertNewObjectForEntityForName("Libro", inManagedObjectContext: contextoBaseDatos!)
+            
             // En el diccionario selecciono el objeto que me interesa.
             let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
             
@@ -122,6 +126,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     let diccionarioConDatos = item as! Dictionary<String,String>
                     let autor = diccionarioConDatos["name"]!
                     
+                    // Si el autor NO existe lo agrego a la base de Datos.
+                    
+                    // 1. Creo un objeto del tipo Autor.
+                    let hayUnAutorEntidad = NSEntityDescription.entityForName("Autor", inManagedObjectContext: contextoBaseDatos!)
+                    // 2. Creo la petición para buscar.
+                    let peticion = hayUnAutorEntidad?.managedObjectModel.fetchRequestFromTemplateWithName("peticionAutor", substitutionVariables: ["nombre" : autor])
+                    
+                    // 3. busco si realmente existe el nuevo autor.
+                    do {
+                        let entidadAutorEncontrada = try contextoBaseDatos?.executeFetchRequest(peticion!)
+                        
+                        // Si la consulta se encontró, el autor existe.
+                        if entidadAutorEncontrada?.count > 0 {
+                            // obtengo el conjunto de posibles libros.
+                            var listaDeLibros = hayUnAutorEntidad!.valueForKey("librosEscritos") as! Set<NSObject>
+                            // Lo relaciono con el libro nuevo.
+                            listaDeLibros.insert(nuevoLibroEntidad)
+                        } else {
+                            // No existe el autor, lo agrego a la base de datos.
+                            let nuevoAutor = NSEntityDescription.insertNewObjectForEntityForName("Autor", inManagedObjectContext: contextoBaseDatos!)
+                            nuevoAutor.setValue(autor, forKey: "nombre")
+                            
+                            // Lo relaciono con el libro.
+                            var listaDeLibros = nuevoAutor.valueForKey("librosEscritos") as! Set<NSObject>
+                            listaDeLibros.insert(nuevoLibroEntidad)
+                        }
+                    } catch {
+                        print("Error al buscar el nombre del autor del libro")
+                    }
+
                     autores += "\(autor) \n"
                 }
             }
@@ -139,14 +173,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
             else { imagenLibro.image = UIImage(named: "logo_OL-lg") }
             
             // Agrego la info en la estructura del libro.
-            let datosDelLibro = InfoLibro(titulo: infoTitulo, ISBN: infoISBN, autores: autores, imagen: imagenPortada!)
+            //let datosDelLibro = InfoLibro(titulo: infoTitulo, ISBN: infoISBN, autores: autores, imagen: imagenPortada!)
             // Guardo el libro en la lista.
-            listaDeLibros.append(datosDelLibro)
+            //listaDeLibros.append(datosDelLibro)
+            
+            
+            // defino el ISBN
+            nuevoLibroEntidad.setValue(infoISBN, forKey: "isbn")
+            // defino el Titulo.
+            nuevoLibroEntidad.setValue(infoTitulo, forKey: "titulo")
+            // defino La imagen
+            nuevoLibroEntidad.setValue(UIImagePNGRepresentation(imagenLibro.image!), forKey: "imagen")
+            
+            // Guardo la información en la base de Datos.
+            do {
+                try contextoBaseDatos?.save()
+            } catch {
+                
+            }
+            
             
         } catch {
             self.visualDatosBusqueda.text = "Existe un problema con la estructura de los datos"
         }
     }
+    
     
     // MARK: Alerta No hay Internet.
     func mostrarAlerta(errorRecibido: NSError?)
@@ -187,6 +238,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
             var existeLibro:Bool =  false
             
             // Buscar si existe el libro.
+            
+            let libroEntidad =  NSEntityDescription.entityForName("Libro", inManagedObjectContext: contextoBaseDatos!)
+            let peticion = libroEntidad?.managedObjectModel.fetchRequestFromTemplateWithName("peticionLibro", substitutionVariables: ["isbn" : infoISBN])
+            
+            do {
+                let libroEntidad2 = try contextoBaseDatos?.executeFetchRequest(peticion!)
+                
+                // Verifico si la consulta se encontró
+                if libroEntidad2?.count > 0 {
+                    existeLibro = true
+                    // recupero los datos.
+                    
+                }
+            } catch {
+                
+            }
+            
+            /* 
+            
+            --- Ya no se necesita se busca directamente en la base de datos. -----
+
             for libro in listaDeLibros {
                 if libro.ISBN == infoISBN {
                     print("presento libro existente")
@@ -198,7 +270,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     break
                 }
             }
-
+            */
+            
             if !existeLibro {
                 // iniciar la busqueda.
                 print("inicio busqueda")

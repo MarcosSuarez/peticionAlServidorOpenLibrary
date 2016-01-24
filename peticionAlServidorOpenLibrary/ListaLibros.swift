@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CoreData
+
+var contextoBaseDatos: NSManagedObjectContext? = nil
 
 struct InfoLibro {
     let titulo: String
@@ -24,9 +27,11 @@ struct InfoLibro {
 }
 
 // Lista con los libros.
-var listaDeLibros = [InfoLibro]()
+//var listaDeLibros = [InfoLibro]()
 
 class ListaLibros: UITableViewController {
+    
+    var listaDeLibros = [InfoLibro]()
     
     @IBAction func alPresionarBotonPlus(sender: UIBarButtonItem) {
         
@@ -44,8 +49,47 @@ class ListaLibros: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         //self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // Defino de donde se saca el contexto.
+        contextoBaseDatos = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        buscarLibros()
+    }
+    
+    func buscarLibros() {
+        // limpio la lista de libros.
+        listaDeLibros.removeAll()
+        // busco la lista de libros.
+        let librosEntidad = NSEntityDescription.entityForName("Libro", inManagedObjectContext: contextoBaseDatos!)
+        let peticion = librosEntidad?.managedObjectModel.fetchRequestTemplateForName("peticionLibros")
+        
+        do {
+            
+            let arregloObjetosLibros = try contextoBaseDatos?.executeFetchRequest(peticion!)
+            
+            for cadaObjetoLibro in arregloObjetosLibros!
+            {
+                let ponerTitulo = cadaObjetoLibro.valueForKey("titulo") as! String
+                let ponerISBN = cadaObjetoLibro.valueForKey("isbn") as! String
+                let ponerImagen = UIImage(data: cadaObjetoLibro.valueForKey("imagen") as! NSData)
+                var ponerNombresAutores = ""
+                let listadoAutores = cadaObjetoLibro.valueForKey("escritoPor") as! Set<NSObject>
+                // busco todos los autores.
+                
+                
+                let libroAgregar = InfoLibro(titulo: ponerTitulo, ISBN: ponerISBN, autores: ponerNombresAutores, imagen: ponerImagen!)
+                
+                listaDeLibros.append(libroAgregar)
+            }
+            
+        } catch {
+            print("NO encontré la petición a Libros")
+        }
 
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
