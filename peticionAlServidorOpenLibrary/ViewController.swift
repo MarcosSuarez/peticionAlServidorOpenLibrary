@@ -105,11 +105,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
             // paso el objeto completo a diccionario.
             let jsonAdiccionario = datosEnJson as! NSDictionary
             
+            // En el diccionario selecciono el objeto que me interesa.
+            let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
+            
             // creo nueva entidad Libro.
             let nuevoLibroEntidad = NSEntityDescription.insertNewObjectForEntityForName("Libro", inManagedObjectContext: contextoBaseDatos!)
             
-            // En el diccionario selecciono el objeto que me interesa.
-            let objetoISBN = jsonAdiccionario["ISBN:\(isbn)"] as! NSDictionary
+            // Creo una variable donde guardar los autores.
+            var autoresEntidades = Set<NSObject>()
             
             // Título del libro.
             infoTitulo = objetoISBN["title"] as! String
@@ -135,22 +138,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     
                     // 3. busco si realmente existe el nuevo autor.
                     do {
-                        let entidadAutorEncontrada = try contextoBaseDatos?.executeFetchRequest(peticion!)
+                        let entidadAutorEncontrada = try contextoBaseDatos?.executeFetchRequest(peticion!) as! [NSObject]
                         
                         // Si la consulta se encontró, el autor existe.
-                        if entidadAutorEncontrada?.count > 0 {
-                            // obtengo el conjunto de posibles libros.
-                            var listaDeLibros = hayUnAutorEntidad!.valueForKey("librosEscritos") as! Set<NSObject>
-                            // Lo relaciono con el libro nuevo.
-                            listaDeLibros.insert(nuevoLibroEntidad)
+                        if entidadAutorEncontrada.count > 0 {
+                            // lo agrego a la lista de autores.
+                            autoresEntidades.insert(entidadAutorEncontrada.first!)
                         } else {
                             // No existe el autor, lo agrego a la base de datos.
                             let nuevoAutor = NSEntityDescription.insertNewObjectForEntityForName("Autor", inManagedObjectContext: contextoBaseDatos!)
                             nuevoAutor.setValue(autor, forKey: "nombre")
-                            
-                            // Lo relaciono con el libro.
-                            var listaDeLibros = nuevoAutor.valueForKey("librosEscritos") as! Set<NSObject>
-                            listaDeLibros.insert(nuevoLibroEntidad)
+                            // lo agrego a la lista de autores.
+                            autoresEntidades.insert(nuevoAutor)
+    
                         }
                     } catch {
                         print("Error al buscar el nombre del autor del libro")
@@ -184,7 +184,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             nuevoLibroEntidad.setValue(infoTitulo, forKey: "titulo")
             // defino La imagen
             nuevoLibroEntidad.setValue(UIImagePNGRepresentation(imagenLibro.image!), forKey: "imagen")
-            
+            // defino los Autores.
+            nuevoLibroEntidad.setValue(autoresEntidades, forKey: "escritoPor")
             // Guardo la información en la base de Datos.
             do {
                 try contextoBaseDatos?.save()
@@ -252,8 +253,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     print("Leyendo de la base de Datos")
                     textFieldISBN.text = libroEntidad2?.first!.valueForKey("isbn") as? String
                     campoTitulo.text = libroEntidad2?.first!.valueForKey("titulo") as? String
-                    //visualDatosBusqueda.text = libro.autores
+                    // muestro la imagen.
                     imagenLibro.image = UIImage(data: libroEntidad2?.first!.valueForKey("imagen") as! NSData)
+                    // busco los autores y los muestro.
+                    let listadoDeAutores = libroEntidad2!.first!.valueForKey("escritoPor") as! Set<NSObject>
+                    var totalDeAutores = ""
+                    for cadaAutor in listadoDeAutores
+                    {
+                        totalDeAutores += cadaAutor.valueForKey("nombre") as! String + "\n"
+                    }
+                    
+                    visualDatosBusqueda.text = "Autores: \n" + totalDeAutores
                 }
             } catch {
                 

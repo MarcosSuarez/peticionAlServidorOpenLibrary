@@ -14,7 +14,7 @@
     <fetchRequest name="peticionLibro" entity="Libro" predicateString="isbn == $isbn"/>
     <fetchRequest name="peticionLibros" entity="Libro"/>
     <elements>
-        <element name="Autor" positionX="-101" positionY="-1" width="128" height="73"/>
+        <element name="Autor" positionX="-29" positionY="-28" width="128" height="73"/>
         <element name="Libro" positionX="-333" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

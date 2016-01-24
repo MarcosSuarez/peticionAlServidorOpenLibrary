@@ -61,12 +61,12 @@ class ListaLibros: UITableViewController {
     func buscarLibros() {
         // limpio la lista de libros.
         listaDeLibros.removeAll()
-        // busco la lista de libros.
+        // busco la lista de libros en la base de Datos.
         let librosEntidad = NSEntityDescription.entityForName("Libro", inManagedObjectContext: contextoBaseDatos!)
+        // tipo de solicitud = TODOS LOS LIBROS
         let peticion = librosEntidad?.managedObjectModel.fetchRequestTemplateForName("peticionLibros")
         
         do {
-            
             let arregloObjetosLibros = try contextoBaseDatos?.executeFetchRequest(peticion!)
             
             for cadaObjetoLibro in arregloObjetosLibros!
@@ -74,10 +74,12 @@ class ListaLibros: UITableViewController {
                 let ponerTitulo = cadaObjetoLibro.valueForKey("titulo") as! String
                 let ponerISBN = cadaObjetoLibro.valueForKey("isbn") as! String
                 let ponerImagen = UIImage(data: cadaObjetoLibro.valueForKey("imagen") as! NSData)
-                var ponerNombresAutores = ""
+                var ponerNombresAutores = "Autores:\n"
                 let listadoAutores = cadaObjetoLibro.valueForKey("escritoPor") as! Set<NSObject>
                 // busco todos los autores.
-                
+                for cadaAutor in listadoAutores {
+                    ponerNombresAutores += cadaAutor.valueForKey("nombre") as! String + "\n"
+                }
                 
                 let libroAgregar = InfoLibro(titulo: ponerTitulo, ISBN: ponerISBN, autores: ponerNombresAutores, imagen: ponerImagen!)
                 
